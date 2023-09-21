@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasketo/Views/Auth/auth_view.dart';
 
 void main() async {
   runApp(const App());
@@ -17,9 +18,7 @@ class App extends StatelessWidget {
           seedColor: const Color.fromARGB(255, 63, 17, 177),
         ),
       ),
-      home: const Center(
-        child: Text("View"),
-      ),
+      home: const AuthView(),
     );
   }
 }
