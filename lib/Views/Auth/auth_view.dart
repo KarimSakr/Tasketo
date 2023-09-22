@@ -25,14 +25,13 @@ class _AuthViewState extends State<AuthView> {
         title: const Text("Tasketo"),
       ),
       body: Center(
-        child: SizedBox(
-          height: 550,
-          width: 340,
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Card(
+              margin: const EdgeInsets.all(25),
               child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
