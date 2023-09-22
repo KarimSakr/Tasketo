@@ -4,30 +4,34 @@ import 'package:tasketo/Utils/Enums/role.dart';
 
 class AuthViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoggingIn = true;
-  Role selectedRole = Role.employee;
+  bool isOnLoginScreen = true;
+  bool isLoading = false;
+
+  Role selectedRole = Role.role;
+
   String enteredEmail = "";
   String enteredFullName = "";
   String enteredPassword = "";
+
   final List<Role> roles = Role.values.toList();
 
   Future<void> submit() async {
     final isValid = formKey.currentState!.validate();
 
-    if (isValid) {
+    if (isValid && selectedRole != Role.role) {
       formKey.currentState!.save();
 
-      if (isLoggingIn) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      if (isOnLoginScreen) {
+        final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: enteredEmail,
           password: enteredPassword,
         );
+        print(user);
       } else {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-              email: enteredEmail,
-              password: enteredPassword,
-            );
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: enteredEmail,
+          password: enteredPassword,
+        );
         // You can perform additional actions after user registration if needed.
       }
 
