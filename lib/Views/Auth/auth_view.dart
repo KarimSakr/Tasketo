@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tasketo/Utils/Enums/role.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class AuthView extends StatefulWidget {
   const AuthView({super.key});
 
@@ -20,11 +22,19 @@ class _AuthViewState extends State<AuthView> {
 
   final List<Role> _roles = Role.values.toList();
 
-  void _submit() {
+  void _submit() async {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
       _formKey.currentState!.save();
+
+      if (_isLoggingIn) {
+      } else {
+        final newUser = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: _enteredEmail, password: _enteredPassword);
+      }
+
       print(_enteredEmail);
       print(_enteredFullName);
       print(_enteredPassword);
