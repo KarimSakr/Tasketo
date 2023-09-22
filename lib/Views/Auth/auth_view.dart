@@ -102,6 +102,11 @@ class _AuthViewState extends State<AuthView> {
                           _viewModel.enteredFullName = value!;
                         },
                       ),
+                      const SizedBox(height: 20),
+                      if(!_viewModel.isRoleSelected && !_viewModel.isOnLoginScreen)
+                       Text("Choose a role", style: TextStyle(
+                        color: Colors.red.shade900,
+                      ),),
                     if (!_viewModel.isOnLoginScreen)
                       DropdownButton(
                         value: _viewModel.selectedRole,

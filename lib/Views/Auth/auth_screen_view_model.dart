@@ -6,6 +6,7 @@ class AuthViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isOnLoginScreen = true;
   bool isLoading = false;
+  bool isRoleSelected = false;
 
   Role selectedRole = Role.role;
 
@@ -17,8 +18,11 @@ class AuthViewModel {
 
   Future<void> submit() async {
     final isValid = formKey.currentState!.validate();
+    if (selectedRole != Role.role) {
+      isRoleSelected = true;
+    }
 
-    if (isValid && selectedRole != Role.role) {
+    if (isValid && isRoleSelected) {
       formKey.currentState!.save();
 
       if (isOnLoginScreen) {
