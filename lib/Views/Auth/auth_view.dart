@@ -29,6 +29,8 @@ class _AuthViewState extends State<AuthView> {
       _formKey.currentState!.save();
 
       if (_isLoggingIn) {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
       } else {
         final newUser = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
