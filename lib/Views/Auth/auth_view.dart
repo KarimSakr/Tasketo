@@ -14,8 +14,19 @@ class _AuthViewState extends State<AuthView> {
   var _isLoggingIn = true;
 
   Role _selectedRole = Role.employee;
+  String _enteredEmail = "";
+  String _enteredFullName = "";
+  String _enteredPassword = "";
 
   final List<Role> _roles = Role.values.toList();
+
+  void _submit() {
+    final isValid = _formKey.currentState!.validate();
+
+    if (isValid) {
+      _formKey.currentState!.save();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,38 +58,67 @@ class _AuthViewState extends State<AuthView> {
                           size: 85,
                           color: Theme.of(context).colorScheme.primary),
                       TextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        keyboardType: TextInputType.emailAddress,
+                        autocorrect: false,
                         decoration: const InputDecoration(
                             icon: Icon(Icons.mail), labelText: "Email"),
                         validator: (value) {
-                          // do something
+                          if (value == null ||
+                              value.trim().isEmpty ||
+                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                            return "Please enter a valid email address.";
+                          }
+                          return null;
                         },
                         onSaved: (value) {
-                          // do something
+                          _enteredEmail = value!;
                         },
                       ),
-                      if (!_isLoggingIn)
-                        TextFormField(
-                          decoration: const InputDecoration(
-                              icon: Icon(Icons.local_library_rounded),
-                              labelText: "Full name"),
-                          validator: (value) {
-                            // do something
-                          },
-                          onSaved: (value) {
-                            // do something
-                          },
-                        ),
                       TextFormField(
                         obscureText: true,
                         decoration: const InputDecoration(
                             icon: Icon(Icons.lock), labelText: "Password"),
                         validator: (value) {
-                          // do something
+                          if (value == null) {
+                            return "Enter a valid password";
+                          }
+                          if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value)) {
+                            return "should contain at least one upper case";
+                          }
+                          if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
+                            return "should contain at least one digit";
+                          }
+                          if (!RegExp(r'^.{8,}').hasMatch(value) || value.trim().isEmpty) {
+                            return "Must be at least 8 characters in length";
+                          }
+
+                          return null;
                         },
                         onSaved: (value) {
-                          // do something
+                          _enteredPassword = value!;
                         },
                       ),
+                      if (!_isLoggingIn)
+                        TextFormField(
+                          textCapitalization: TextCapitalization.words,
+                          autocorrect: false,
+                          enableSuggestions: false,
+                          keyboardType: TextInputType.name,
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.local_library_rounded),
+                              labelText: "Full name"),
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return "Enter a valid name";
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _enteredFullName = value!;
+                          },
+                        ),
                       if (!_isLoggingIn)
                         DropdownButton(
                           value: _selectedRole,
@@ -97,18 +137,25 @@ class _AuthViewState extends State<AuthView> {
                         ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                        ),
+                        onPressed: _submit,
                         child: const Text("Submit"),
                       ),
                       TextButton(
-                          onPressed: () {
-                            setState(
-                              () {
-                                _isLoggingIn = !_isLoggingIn;
-                              },
-                            );
-                          },
-                          child: const Text("I don't have an account."))
+                        onPressed: () {
+                          setState(
+                            () {
+                              _isLoggingIn = !_isLoggingIn;
+                            },
+                          );
+                        },
+                        child: Text(_isLoggingIn
+                            ? "I don't have an account."
+                            : "I already have an account."),
+                      ),
                     ],
                   )),
             ),
