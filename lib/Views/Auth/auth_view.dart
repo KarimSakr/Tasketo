@@ -25,6 +25,9 @@ class _AuthViewState extends State<AuthView> {
 
     if (isValid) {
       _formKey.currentState!.save();
+      print(_enteredEmail);
+      print(_enteredFullName);
+      print(_enteredPassword);
     }
   }
 
@@ -90,7 +93,8 @@ class _AuthViewState extends State<AuthView> {
                           if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
                             return "should contain at least one digit";
                           }
-                          if (!RegExp(r'^.{8,}').hasMatch(value) || value.trim().isEmpty) {
+                          if (!RegExp(r'^.{8,}').hasMatch(value) ||
+                              value.trim().isEmpty) {
                             return "Must be at least 8 characters in length";
                           }
 
