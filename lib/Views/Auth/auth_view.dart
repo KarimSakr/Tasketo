@@ -1,73 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:tasketo/Utils/Enums/role.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tasketo/Views/Auth/auth_screen_view_model.dart';
 
 class AuthView extends StatefulWidget {
-  const AuthView({super.key});
+  const AuthView({Key? key}) : super(key: key);
 
   @override
   State<AuthView> createState() => _AuthViewState();
 }
 
 class _AuthViewState extends State<AuthView> {
-  final _formKey = GlobalKey<FormState>();
-
-  var _isLoggingIn = true;
-
-  Role _selectedRole = Role.employee;
-  String _enteredEmail = "";
-  String _enteredFullName = "";
-  String _enteredPassword = "";
-
-  final List<Role> _roles = Role.values.toList();
-
-  void _submit() async {
-    final isValid = _formKey.currentState!.validate();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-
-      if (_isLoggingIn) {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: _enteredEmail, password: _enteredPassword);
-      } else {
-        final newUser = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: _enteredEmail, password: _enteredPassword);
-      }
-
-      print(_enteredEmail);
-      print(_enteredFullName);
-      print(_enteredPassword);
-    }
-  }
+  final AuthViewModel _viewModel = AuthViewModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
-        title: const Text("Tasketo"),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: _viewModel.formKey,
             child: Card(
               margin: const EdgeInsets.all(25),
               child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                   
                       Text(
-                        _isLoggingIn ? "Login" : "Signup",
+                        _viewModel.isLoggingIn ? "Login" : "Signup",
                         style: const TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.bold),
                       ),
                       Icon(
-                          _isLoggingIn
+                          _viewModel.isLoggingIn
                               ? Icons.account_circle_sharp
                               : Icons.person_add_alt_1,
                           size: 85,
@@ -88,7 +54,7 @@ class _AuthViewState extends State<AuthView> {
                           return null;
                         },
                         onSaved: (value) {
-                          _enteredEmail = value!;
+                          _viewModel.enteredEmail = value!;
                         },
                       ),
                       TextFormField(
@@ -113,10 +79,10 @@ class _AuthViewState extends State<AuthView> {
                           return null;
                         },
                         onSaved: (value) {
-                          _enteredPassword = value!;
+                          _viewModel.enteredPassword = value!;
                         },
                       ),
-                      if (!_isLoggingIn)
+                      if (!_viewModel.isLoggingIn)
                         TextFormField(
                           textCapitalization: TextCapitalization.words,
                           autocorrect: false,
@@ -132,13 +98,13 @@ class _AuthViewState extends State<AuthView> {
                             return null;
                           },
                           onSaved: (value) {
-                            _enteredFullName = value!;
+                            _viewModel.enteredFullName = value!;
                           },
                         ),
-                      if (!_isLoggingIn)
+                      if (!_viewModel.isLoggingIn)
                         DropdownButton(
-                          value: _selectedRole,
-                          items: _roles
+                          value: _viewModel.selectedRole,
+                          items: _viewModel.roles
                               .map((element) => DropdownMenuItem(
                                   value: element, child: Text(element.name)))
                               .toList(),
@@ -147,33 +113,33 @@ class _AuthViewState extends State<AuthView> {
                               return;
                             }
                             setState(() {
-                              _selectedRole = value;
+                              _viewModel.selectedRole = value;
                             });
                           },
                         ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                        ),
-                        onPressed: _submit,
-                        child: const Text("Submit"),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryContainer,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(
-                            () {
-                              _isLoggingIn = !_isLoggingIn;
-                            },
-                          );
-                        },
-                        child: Text(_isLoggingIn
-                            ? "I don't have an account."
-                            : "I already have an account."),
-                      ),
-                    ],
-                  )),
+                      onPressed: _viewModel.submit,
+                      child: const Text("Submit"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _viewModel.isLoggingIn = !_viewModel.isLoggingIn;
+                        });
+                      },
+                      child: Text(_viewModel.isLoggingIn
+                          ? "I don't have an account."
+                          : "I already have an account."),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
