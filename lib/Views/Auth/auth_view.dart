@@ -11,6 +11,16 @@ class AuthView extends StatefulWidget {
 class _AuthViewState extends State<AuthView> {
   final AuthViewModel _viewModel = AuthViewModel();
 
+  void _displayScaffold(String errorMessage) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(errorMessage),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,11 +112,15 @@ class _AuthViewState extends State<AuthView> {
                           _viewModel.enteredFullName = value!;
                         },
                       ),
-                      const SizedBox(height: 20),
-                      if(!_viewModel.isRoleSelected && !_viewModel.isOnLoginScreen)
-                       Text("Choose a role", style: TextStyle(
-                        color: Colors.red.shade900,
-                      ),),
+                    const SizedBox(height: 20),
+                    if (!_viewModel.isRoleSelected &&
+                        !_viewModel.isOnLoginScreen)
+                      Text(
+                        "Choose a role",
+                        style: TextStyle(
+                          color: Colors.red.shade900,
+                        ),
+                      ),
                     if (!_viewModel.isOnLoginScreen)
                       DropdownButton(
                         value: _viewModel.selectedRole,
@@ -133,11 +147,15 @@ class _AuthViewState extends State<AuthView> {
                         backgroundColor:
                             Theme.of(context).colorScheme.primaryContainer,
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           _viewModel.isLoading = true;
                         });
-                        _viewModel.submit();
+                        try {
+                          await _viewModel.submit();
+                        } catch (error) {
+                          _displayScaffold(error.toString());
+                        }
                         setState(() {
                           _viewModel.isLoading = false;
                         });

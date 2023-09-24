@@ -7,12 +7,14 @@ class AuthViewModel {
   bool isOnLoginScreen = true;
   bool isLoading = false;
   bool isRoleSelected = false;
+  bool didErrorOccur = false;
 
   Role selectedRole = Role.role;
 
   String enteredEmail = "";
   String enteredFullName = "";
   String enteredPassword = "";
+  String errorMessage = "";
 
   final List<Role> roles = Role.values.toList();
 
@@ -22,27 +24,38 @@ class AuthViewModel {
       isRoleSelected = true;
     }
 
-    if (isValid && isRoleSelected) {
+    if (isValid) {
       formKey.currentState!.save();
 
-      if (isOnLoginScreen) {
-        final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: enteredEmail,
-          password: enteredPassword,
-        );
-        print(user);
-      } else {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: enteredEmail,
-          password: enteredPassword,
-        );
-        // You can perform additional actions after user registration if needed.
+      try {
+        if (isOnLoginScreen) {
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: enteredEmail,
+            password: enteredPassword,
+          );
+        } else {
+          if (isRoleSelected) {
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: enteredEmail,
+              password: enteredPassword,
+            );
+          }
+        }
+      } on FirebaseAuthException catch (error) {
+        didErrorOccur = true;
+        errorMessage = error.code.toLowerCase().replaceAll(RegExp(r'_'), " ");
+        throw errorMessage;
       }
-
-      // You can print or perform other actions with the entered data here.
-      print(enteredEmail);
-      print(enteredFullName);
-      print(enteredPassword);
     }
+  }
+
+  void diplaySnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(errorMessage),
+      ),
+    );
   }
 }
