@@ -156,7 +156,10 @@ class _AuthViewState extends State<AuthView> {
                           _viewModel.isLoading = true;
                         });
                         try {
-                          await _viewModel.submit(enteredEmail: _enteredEmail, enteredPassword: _enteredPassword, enteredFullName: _enteredFullName);
+                          await _viewModel.submit(
+                              enteredEmail: _enteredEmail,
+                              enteredPassword: _enteredPassword,
+                              enteredFullName: _enteredFullName);
                         } catch (error) {
                           _displayScaffold(error.toString());
                         }

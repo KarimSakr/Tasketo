@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasketo/Utils/Enums/role.dart';
@@ -10,14 +11,18 @@ class AuthViewModel {
 
   Role selectedRole = Role.role;
 
-
-
   final List<Role> roles = Role.values.toList();
 
-  Future<void> submit({required String enteredEmail, required String enteredPassword, required enteredFullName}) async {
+  Future<void> submit(
+      {required String enteredEmail,
+      required String enteredPassword,
+      required String enteredFullName}) async {
     final isValid = formKey.currentState!.validate();
+
     if (selectedRole != Role.role) {
       isRoleSelected = true;
+    } else {
+      isRoleSelected = false;
     }
 
     if (isValid) {
@@ -31,14 +36,27 @@ class AuthViewModel {
           );
         } else {
           if (isRoleSelected) {
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            final userCrentials =
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: enteredEmail,
               password: enteredPassword,
             );
+
+            await FirebaseFirestore.instance
+                .collection("users")
+                .doc(userCrentials.user!.uid)
+                .set({
+              "enteredFullName": enteredFullName,
+              "email": enteredEmail,
+              "role": selectedRole.name,
+            });
           }
         }
       } on FirebaseAuthException catch (error) {
-        throw error.code.toLowerCase().replaceAll(RegExp(r'_'), " ");
+        throw error.code
+            .toLowerCase()
+            .replaceAll(RegExp(r'_'), " ")
+            .replaceAll(RegExp(r'-'), " ");
       }
     }
   }
