@@ -11,6 +11,10 @@ class AuthView extends StatefulWidget {
 class _AuthViewState extends State<AuthView> {
   final AuthViewModel _viewModel = AuthViewModel();
 
+  String _enteredEmail = "";
+  String _enteredFullName = "";
+  String _enteredPassword = "";
+
   void _displayScaffold(String errorMessage) {
     ScaffoldMessenger.of(context).clearSnackBars();
     // ignore: use_build_context_synchronously
@@ -65,7 +69,7 @@ class _AuthViewState extends State<AuthView> {
                         return null;
                       },
                       onSaved: (value) {
-                        _viewModel.enteredEmail = value!;
+                        _enteredEmail = value!;
                       },
                     ),
                     TextFormField(
@@ -90,7 +94,7 @@ class _AuthViewState extends State<AuthView> {
                         return null;
                       },
                       onSaved: (value) {
-                        _viewModel.enteredPassword = value!;
+                        _enteredPassword = value!;
                       },
                     ),
                     if (!_viewModel.isOnLoginScreen)
@@ -109,7 +113,7 @@ class _AuthViewState extends State<AuthView> {
                           return null;
                         },
                         onSaved: (value) {
-                          _viewModel.enteredFullName = value!;
+                          _enteredFullName = value!;
                         },
                       ),
                     const SizedBox(height: 20),
@@ -152,7 +156,7 @@ class _AuthViewState extends State<AuthView> {
                           _viewModel.isLoading = true;
                         });
                         try {
-                          await _viewModel.submit();
+                          await _viewModel.submit(enteredEmail: _enteredEmail, enteredPassword: _enteredPassword, enteredFullName: _enteredFullName);
                         } catch (error) {
                           _displayScaffold(error.toString());
                         }

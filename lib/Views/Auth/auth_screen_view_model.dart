@@ -7,18 +7,14 @@ class AuthViewModel {
   bool isOnLoginScreen = true;
   bool isLoading = false;
   bool isRoleSelected = false;
-  bool didErrorOccur = false;
 
   Role selectedRole = Role.role;
 
-  String enteredEmail = "";
-  String enteredFullName = "";
-  String enteredPassword = "";
-  String errorMessage = "";
+
 
   final List<Role> roles = Role.values.toList();
 
-  Future<void> submit() async {
+  Future<void> submit({required String enteredEmail, required String enteredPassword, required enteredFullName}) async {
     final isValid = formKey.currentState!.validate();
     if (selectedRole != Role.role) {
       isRoleSelected = true;
@@ -42,20 +38,8 @@ class AuthViewModel {
           }
         }
       } on FirebaseAuthException catch (error) {
-        didErrorOccur = true;
-        errorMessage = error.code.toLowerCase().replaceAll(RegExp(r'_'), " ");
-        throw errorMessage;
+        throw error.code.toLowerCase().replaceAll(RegExp(r'_'), " ");
       }
     }
-  }
-
-  void diplaySnackBar(BuildContext context) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    // ignore: use_build_context_synchronously
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(errorMessage),
-      ),
-    );
   }
 }
