@@ -30,6 +30,7 @@ class AuthViewModel {
 
       try {
         if (isOnLoginScreen) {
+          // TODO: Fetch user's data on sign in
           await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: enteredEmail,
             password: enteredPassword,
