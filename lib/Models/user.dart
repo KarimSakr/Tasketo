@@ -1,5 +1,3 @@
-import 'package:tasketo/Utils/Enums/role.dart';
-
 class TasketoUser {
   TasketoUser(
       {required this.id,
@@ -9,5 +7,5 @@ class TasketoUser {
   final String id;
   final String email;
   final String fullName;
-  final Role role;
+  final String role;
 }

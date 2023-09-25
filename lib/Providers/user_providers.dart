@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasketo/Models/user.dart';
-import 'package:tasketo/Utils/Enums/role.dart';
 
 class UserNotifier extends StateNotifier<TasketoUser> {
   UserNotifier()
