@@ -11,9 +11,9 @@ class AuthView extends StatefulWidget {
 class _AuthViewState extends State<AuthView> {
   final AuthViewModel _viewModel = AuthViewModel();
 
-  String _enteredEmail = "";
-  String _enteredFullName = "";
-  String _enteredPassword = "";
+  String _enteredEmail = '';
+  String _enteredFullName = '';
+  String _enteredPassword = '';
 
   void _displayScaffold(String errorMessage) {
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -41,7 +41,7 @@ class _AuthViewState extends State<AuthView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      _viewModel.isOnLoginScreen ? "Login" : "Signup",
+                      _viewModel.isOnLoginScreen ? 'Login' : 'Signup',
                       style: const TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -58,13 +58,13 @@ class _AuthViewState extends State<AuthView> {
                       keyboardType: TextInputType.emailAddress,
                       autocorrect: false,
                       decoration: const InputDecoration(
-                          icon: Icon(Icons.mail), labelText: "Email"),
+                          icon: Icon(Icons.mail), labelText: 'Email'),
                       validator: (value) {
                         if (value == null ||
                             value.trim().isEmpty ||
                             !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                 .hasMatch(value)) {
-                          return "Please enter a valid email address.";
+                          return 'Please enter a valid email address.';
                         }
                         return null;
                       },
@@ -75,16 +75,16 @@ class _AuthViewState extends State<AuthView> {
                     TextFormField(
                       obscureText: true,
                       decoration: const InputDecoration(
-                          icon: Icon(Icons.lock), labelText: "Password"),
+                          icon: Icon(Icons.lock), labelText: 'Password'),
                       validator: (value) {
                         if (value == null) {
-                          return "Enter a valid password";
+                          return 'Enter a valid password';
                         }
                         if (!RegExp(r'^(?=.*[A-Z])').hasMatch(value)) {
-                          return "should contain at least one upper case";
+                          return 'should contain at least one upper case';
                         }
                         if (!RegExp(r'^(?=.*?[0-9])').hasMatch(value)) {
-                          return "should contain at least one digit";
+                          return 'should contain at least one digit';
                         }
                         if (!RegExp(r'^.{8,}').hasMatch(value) ||
                             value.trim().isEmpty) {
@@ -105,10 +105,10 @@ class _AuthViewState extends State<AuthView> {
                         keyboardType: TextInputType.name,
                         decoration: const InputDecoration(
                             icon: Icon(Icons.local_library_rounded),
-                            labelText: "Full Name"),
+                            labelText: 'Full Name'),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return "Enter a valid name";
+                            return 'Enter a valid name';
                           }
                           return null;
                         },
@@ -120,7 +120,7 @@ class _AuthViewState extends State<AuthView> {
                     if (!_viewModel.isRoleSelected &&
                         !_viewModel.isOnLoginScreen)
                       Text(
-                        "Choose a role",
+                        'Choose a role',
                         style: TextStyle(
                           color: Colors.red.shade900,
                         ),
@@ -180,7 +180,7 @@ class _AuthViewState extends State<AuthView> {
                       },
                       child: Text(_viewModel.isOnLoginScreen
                           ? "I don't have an account."
-                          : "I already have an account."),
+                          : 'I already have an account.'),
                     ),
                   ],
                 ),
