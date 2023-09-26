@@ -8,7 +8,7 @@ import 'package:tasketo/Utils/Manager/shared_prefence_manager.dart';
 class AuthViewModel {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final persistence = SharedPrefrenceManager.instance;
+  final persistence = SharedPrefrenceManager();
 
   bool isOnLoginScreen = true;
   bool isLoading = false;
@@ -83,8 +83,8 @@ class AuthViewModel {
       } on FirebaseAuthException catch (error) {
         throw error.code
             .toLowerCase()
-            .replaceAll(RegExp(r'_'), '' )
-            .replaceAll(RegExp(r'-'), '');
+            .replaceAll(RegExp(r'_'), ' ')
+            .replaceAll(RegExp(r'-'), ' ');
       }
     }
   }

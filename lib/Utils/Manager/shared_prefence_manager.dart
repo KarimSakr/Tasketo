@@ -3,11 +3,6 @@ import 'package:tasketo/Models/user.dart';
 import 'package:tasketo/Utils/constants.dart';
 
 class SharedPrefrenceManager {
-  SharedPrefrenceManager._internal();
-  static final SharedPrefrenceManager _instance =
-      SharedPrefrenceManager._internal();
-
-  static SharedPrefrenceManager get instance => _instance;
 
   Future<void> saveUser(TasketoUser user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -26,5 +21,13 @@ class SharedPrefrenceManager {
 
     return TasketoUser(
         id: id!, email: email!, fullName: fullName!, role: role!);
+  }
+
+  Future<void> removeUser() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(PersistenceKeys.userEmail);
+    await prefs.remove(PersistenceKeys.userId);
+    await prefs.remove(PersistenceKeys.userFullName);
+    await prefs.remove(PersistenceKeys.userRole);
   }
 }
