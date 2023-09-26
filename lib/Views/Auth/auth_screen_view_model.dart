@@ -13,6 +13,7 @@ class AuthViewModel {
   bool isOnLoginScreen = true;
   bool isLoading = false;
   bool isRoleSelected = false;
+  bool isSubmitted = false;
 
   Role selectedRole = Role.role;
 
@@ -22,6 +23,7 @@ class AuthViewModel {
       {required String enteredEmail,
       required String enteredPassword,
       required String enteredFullName}) async {
+        isSubmitted = true;
     final isValid = formKey.currentState!.validate();
 
     if (selectedRole != Role.role) {

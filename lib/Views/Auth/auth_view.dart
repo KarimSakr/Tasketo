@@ -117,14 +117,6 @@ class _AuthViewState extends State<AuthView> {
                         },
                       ),
                     const SizedBox(height: 20),
-                    if (!_viewModel.isRoleSelected &&
-                        !_viewModel.isOnLoginScreen)
-                      Text(
-                        'Choose a role',
-                        style: TextStyle(
-                          color: Colors.red.shade900,
-                        ),
-                      ),
                     if (!_viewModel.isOnLoginScreen)
                       DropdownButton(
                         value: _viewModel.selectedRole,
@@ -144,6 +136,16 @@ class _AuthViewState extends State<AuthView> {
                             _viewModel.selectedRole = value;
                           });
                         },
+                      ),
+                      if (!_viewModel.isRoleSelected &&
+                        !_viewModel.isOnLoginScreen &&
+                        _viewModel.isSubmitted)
+                      Text(
+                        'Choose a role',
+                        style: TextStyle(
+                          color: Colors.red.shade900,
+                          fontSize: 11,
+                        ),
                       ),
                     const SizedBox(height: 20),
                     ElevatedButton(
