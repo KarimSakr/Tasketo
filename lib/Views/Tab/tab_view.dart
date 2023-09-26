@@ -9,14 +9,18 @@ class TabView extends StatefulWidget {
 }
 
 class _TabViewState extends State<TabView> {
-
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        FirebaseAuth.instance.signOut();
-      },
-      child: const Text('logout'),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
+          child: const Text('logout'),
+        ),
+      ),
     );
   }
 }

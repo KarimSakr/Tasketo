@@ -3,7 +3,6 @@ import 'package:tasketo/Models/user.dart';
 import 'package:tasketo/Utils/constants.dart';
 
 class SharedPrefrenceManager {
-
   Future<void> saveUser(TasketoUser user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(PersistenceKeys.userEmail, user.email);

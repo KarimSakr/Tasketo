@@ -137,7 +137,7 @@ class _AuthViewState extends State<AuthView> {
                           });
                         },
                       ),
-                      if (!_viewModel.isRoleSelected &&
+                    if (!_viewModel.isRoleSelected &&
                         !_viewModel.isOnLoginScreen &&
                         _viewModel.isSubmitted)
                       Text(

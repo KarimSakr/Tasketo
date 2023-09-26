@@ -23,7 +23,7 @@ class AuthViewModel {
       {required String enteredEmail,
       required String enteredPassword,
       required String enteredFullName}) async {
-        isSubmitted = true;
+    isSubmitted = true;
     final isValid = formKey.currentState!.validate();
 
     if (selectedRole != Role.role) {
