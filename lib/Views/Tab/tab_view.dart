@@ -12,7 +12,7 @@ class _TabViewState extends State<TabView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: ElevatedButton(
           onPressed: () {
