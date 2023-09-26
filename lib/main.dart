@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tasketo/Views/Auth/auth_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tasketo/Views/Splash/splash_view.dart';
 import 'package:tasketo/Views/Tab/tab_view.dart';
 import 'firebase_options.dart';
 
@@ -31,7 +32,7 @@ class App extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
+            return const SplashView();
           }
           if (snapshot.hasData) {
             return const TabView();
