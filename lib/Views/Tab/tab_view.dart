@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tasketo/Views/Calendar/calendar_view.dart';
-import 'package:tasketo/Views/Splash/splash_view.dart';
 import 'package:tasketo/Views/Tab/tab_view_model.dart';
 import 'package:tasketo/Views/Task/task_view.dart';
 
