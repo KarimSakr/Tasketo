@@ -9,18 +9,6 @@ class TabViewModel {
     selectedTabIndex = index;
   }
 
-  void setScreen(String identifier, BuildContext context) async {
-    Navigator.of(context).pop();
-    if (identifier == "filters") {
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          // remove SplashView
-          builder: ((context) => const SplashView()),
-        ),
-      );
-    }
-  }
-
   void signout() {
     FirebaseAuth.instance.signOut();
   }

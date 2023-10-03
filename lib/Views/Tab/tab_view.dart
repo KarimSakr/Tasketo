@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tasketo/Views/Calendar/calendar_view.dart';
 import 'package:tasketo/Views/Splash/splash_view.dart';
 import 'package:tasketo/Views/Tab/tab_view_model.dart';
+import 'package:tasketo/Views/Task/task_view.dart';
 
 class TabView extends StatefulWidget {
   const TabView({super.key});
@@ -13,6 +15,12 @@ class _TabViewState extends State<TabView> {
   final viewModel = TabViewModel();
   @override
   Widget build(BuildContext context) {
+    Widget activeScreen = const TaskView();
+
+    if (viewModel.selectedTabIndex == 1) {
+      activeScreen = const CalendarView();
+    }
+
     return Scaffold(
         appBar: AppBar(
           actions: [
@@ -23,7 +31,7 @@ class _TabViewState extends State<TabView> {
           ],
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: const Center(child: SplashView()),
+        body: activeScreen,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: viewModel.selectedTabIndex,
           onTap: (index) {
