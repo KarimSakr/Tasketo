@@ -1,8 +1,8 @@
 import 'package:tasketo/Models/user.dart';
 import 'package:tasketo/Utils/Enums/tag.dart';
 
-class Tasks {
-    Tasks({
+class Task {
+  Task({
     required this.id,
     required this.title,
     required this.description,
@@ -11,7 +11,7 @@ class Tasks {
     required this.dueDate,
     required this.tag,
   });
-  
+
   final String id;
   final String title;
   final String description;

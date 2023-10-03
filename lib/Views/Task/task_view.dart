@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tasketo/Models/tasks.dart';
+import 'package:tasketo/Models/task.dart';
+import 'package:tasketo/Models/user.dart';
+import 'package:tasketo/Utils/Enums/tag.dart';
+import 'package:tasketo/Views/Widgets/task_cell.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView({super.key});
@@ -9,13 +12,25 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  List<Tasks> tasks = [];
+  List<Task> tasks = [
+    Task(
+      id: "4234234",
+      title: 'test',
+      description: 'test test',
+      assignedUser: TasketoUser(
+          id: '', email: 'email', fullName: 'fullName', role: 'role'),
+      assignedDate: DateTime.now(),
+      dueDate: DateTime.now(),
+      tag: Tag.important,
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (context, index) {
+          return TaskCell(task: tasks[index],);
         });
   }
 }
