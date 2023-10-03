@@ -24,7 +24,10 @@ class _TabViewState extends State<TabView> {
         appBar: AppBar(
           actions: [
             IconButton(
-              icon: const Icon(Icons.logout),
+              icon: Icon(
+                Icons.logout,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               onPressed: viewModel.signout,
             ),
           ],
