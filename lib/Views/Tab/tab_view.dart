@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tasketo/Views/Splash/splash_view.dart';
 import 'package:tasketo/Views/Tab/tab_view_model.dart';
 
 class TabView extends StatefulWidget {
@@ -14,13 +14,16 @@ class _TabViewState extends State<TabView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: ElevatedButton(
-          onPressed: viewModel.signout,
-          child: const Text('logout'),
-        ),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: viewModel.signout,
+          ),
+        ],
       ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const Center(child: SplashView()),
     );
   }
 }
