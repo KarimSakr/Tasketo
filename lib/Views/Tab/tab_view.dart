@@ -14,16 +14,33 @@ class _TabViewState extends State<TabView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: viewModel.signout,
-          ),
-        ],
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: const Center(child: SplashView()),
-    );
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: viewModel.signout,
+            ),
+          ],
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: const Center(child: SplashView()),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: viewModel.selectedTabIndex,
+          onTap: (index) {
+            setState(() {
+              viewModel.selectPage(index);
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.task),
+              label: 'Tasks',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month),
+              label: 'Calendar',
+            ),
+          ],
+        ));
   }
 }
