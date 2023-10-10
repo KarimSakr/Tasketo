@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasketo/Models/task.dart';
 import 'package:tasketo/Models/user.dart';
-import 'package:tasketo/Utils/Enums/tag.dart';
 import 'package:tasketo/Views/Widgets/task_cell.dart';
 
 class TaskView extends StatefulWidget {
@@ -18,10 +17,9 @@ class _TaskViewState extends State<TaskView> {
       title: 'test',
       description: 'test test',
       assignedUser: TasketoUser(
-          id: '', email: 'email', fullName: 'fullName', role: 'role'),
+          id: '', email: 'email', fullName: 'Karim Sakr', role: 'role'),
       assignedDate: DateTime.now(),
       dueDate: DateTime.now(),
-      tag: Tag.important,
     )
   ];
 
