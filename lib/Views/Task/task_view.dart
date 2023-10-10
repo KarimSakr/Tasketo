@@ -28,7 +28,9 @@ class _TaskViewState extends State<TaskView> {
     return ListView.builder(
         itemCount: tasks.length,
         itemBuilder: (context, index) {
-          return TaskCell(task: tasks[index],);
+          return TaskCell(
+            task: tasks[index],
+          );
         });
   }
 }
