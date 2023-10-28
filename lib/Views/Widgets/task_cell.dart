@@ -14,16 +14,25 @@ class TaskCell extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            Text(task.title),
-            if (task.description != null)
-            SizedBox(
-              width: 200,
-              child: Text(task.description!, style: const TextStyle(overflow: TextOverflow.ellipsis),),
-            )
-              
+            if (task.color != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(Icons.circle, color: task.color,),
+              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(task.title),
+                if (task.description != null)
+                SizedBox(
+                  width: 200,
+                  child: Text(task.description!, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                )
+                  
+              ],
+            ),
           ],
         ),
       ),
