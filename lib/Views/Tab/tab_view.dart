@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasketo/Views/Calendar/calendar_view.dart';
+import 'package:tasketo/Views/New%20Task/new_task_view.dart';
 import 'package:tasketo/Views/Tab/tab_view_model.dart';
 import 'package:tasketo/Views/Task/task_view.dart';
 
@@ -21,6 +22,12 @@ class _TabViewState extends State<TabView> {
     }
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NewTaskView()));
+        },
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
