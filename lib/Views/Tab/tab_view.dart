@@ -21,6 +21,10 @@ class _TabViewState extends State<TabView> {
     }
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {},
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
