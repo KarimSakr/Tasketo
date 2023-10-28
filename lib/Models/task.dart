@@ -9,7 +9,7 @@ class Task {
     required this.isCompleted,
     this.assignedUser,
     required this.assignedDate,
-    required this.dueDate,
+    this.dueDate,
     this.color,
   });
 
@@ -19,6 +19,6 @@ class Task {
   final bool isCompleted;
   final TasketoUser? assignedUser;
   final DateTime assignedDate;
-  final DateTime dueDate;
+  final DateTime? dueDate;
   final Color? color;
 }
