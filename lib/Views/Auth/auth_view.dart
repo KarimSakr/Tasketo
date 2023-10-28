@@ -15,9 +15,10 @@ class _AuthViewState extends State<AuthView> {
   String _enteredFullName = '';
   String _enteredPassword = '';
 
+  bool _isLoading = false;
+
   void _displayScaffold(String errorMessage) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(errorMessage),
@@ -155,7 +156,7 @@ class _AuthViewState extends State<AuthView> {
                       ),
                       onPressed: () async {
                         setState(() {
-                          _viewModel.isLoading = true;
+                          _isLoading = true;
                         });
                         try {
                           await _viewModel.submit(
@@ -166,10 +167,10 @@ class _AuthViewState extends State<AuthView> {
                           _displayScaffold(error.toString());
                         }
                         setState(() {
-                          _viewModel.isLoading = false;
+                          _isLoading = false;
                         });
                       },
-                      child: _viewModel.isLoading
+                      child: _isLoading
                           ? const CircularProgressIndicator()
                           : const Text("Submit"),
                     ),
@@ -180,9 +181,11 @@ class _AuthViewState extends State<AuthView> {
                               !_viewModel.isOnLoginScreen;
                         });
                       },
-                      child: Text(_viewModel.isOnLoginScreen
-                          ? "I don't have an account."
-                          : 'I already have an account.'),
+                      child: Text(
+                        _viewModel.isOnLoginScreen
+                            ? "I don't have an account."
+                            : 'I already have an account.',
+                      ),
                     ),
                   ],
                 ),
