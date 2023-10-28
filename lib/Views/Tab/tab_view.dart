@@ -21,36 +21,37 @@ class _TabViewState extends State<TabView> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.logout,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: viewModel.signout,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color: Theme.of(context).colorScheme.primary,
             ),
-          ],
-        ),
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: activeScreen,
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: viewModel.selectedTabIndex,
-          onTap: (index) {
-            setState(() {
-              viewModel.selectPage(index);
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.task),
-              label: 'Tasks',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month),
-              label: 'Calendar',
-            ),
-          ],
-        ));
+            onPressed: viewModel.signout,
+          ),
+        ],
+      ),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: activeScreen,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: viewModel.selectedTabIndex,
+        onTap: (index) {
+          setState(() {
+            viewModel.selectPage(index);
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task),
+            label: 'Tasks',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendar',
+          ),
+        ],
+      ),
+    );
   }
 }

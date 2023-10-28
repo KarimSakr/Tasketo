@@ -10,7 +10,6 @@ class AuthViewModel {
   final AuthManager authManager = AuthManager();
 
   bool isOnLoginScreen = true;
-  bool isLoading = false;
   bool isRoleSelected = false;
   bool isSubmitted = false;
 
@@ -36,10 +35,10 @@ class AuthViewModel {
 
       try {
         if (isOnLoginScreen) {
-          authManager.signIn(enteredEmail, enteredPassword);
+          await authManager.signIn(enteredEmail, enteredPassword);
         } else {
           if (isRoleSelected) {
-            authManager.createUser(
+            await authManager.createUser(
                 enteredEmail, enteredPassword, enteredFullName, selectedRole);
           }
         }
