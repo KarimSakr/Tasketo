@@ -15,7 +15,7 @@ class _TaskViewState extends State<TaskView> {
     Task(
       id: "4234234",
       title: 'test',
-      description: 'test test',
+      description: 'This is the description of the task.',
       assignedUser: TasketoUser(
           id: '', email: 'email', fullName: 'Karim Sakr', role: 'role'),
       assignedDate: DateTime.now(),
