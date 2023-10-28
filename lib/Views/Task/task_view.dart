@@ -13,15 +13,15 @@ class TaskView extends StatefulWidget {
 class _TaskViewState extends State<TaskView> {
   List<Task> tasks = [
     Task(
-      id: "4234234",
-      title: 'Task 1',
-      description: 'This is the description of the task.',
-      assignedUser: TasketoUser(
-          id: '', email: 'email', fullName: 'Karim Sakr', role: 'role'),
-      assignedDate: DateTime.now(),
-      dueDate: DateTime.now(),
-      color: Colors.red
-    )
+        id: "4234234",
+        title: 'Task 1',
+        description: 'This is the description of the task.',
+        isCompleted: true,
+        assignedUser: TasketoUser(
+            id: '', email: 'email', fullName: 'Karim Sakr', role: 'role'),
+        assignedDate: DateTime.now(),
+        dueDate: DateTime.now(),
+        color: Colors.red)
   ];
 
   @override

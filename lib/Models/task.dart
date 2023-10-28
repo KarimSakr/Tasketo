@@ -6,6 +6,7 @@ class Task {
     required this.id,
     required this.title,
     this.description,
+    required this.isCompleted,
     this.assignedUser,
     required this.assignedDate,
     required this.dueDate,
@@ -15,6 +16,7 @@ class Task {
   final String id;
   final String title;
   final String? description;
+  final bool isCompleted;
   final TasketoUser? assignedUser;
   final DateTime assignedDate;
   final DateTime dueDate;
