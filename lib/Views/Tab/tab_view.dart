@@ -25,7 +25,8 @@ class _TabViewState extends State<TabView> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NewTaskView()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const NewTaskView()));
         },
       ),
       appBar: AppBar(
